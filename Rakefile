@@ -1,9 +1,3 @@
-begin
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new(:spec)
-rescue LoadError
-end
-
 namespace :docker do
   task :build do
     `sudo docker build -t admiral . 1>&2`
@@ -14,3 +8,5 @@ namespace :docker do
      sudo docker run -t admiral_test /root/.rbenv/shims/bundle exec rspec 1>&2`
   end
 end
+
+task default: ['docker:spec']
