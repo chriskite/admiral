@@ -63,3 +63,5 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 end
+
+Admiral.etcd_host = '127.0.0.1'

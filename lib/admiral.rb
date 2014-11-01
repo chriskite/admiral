@@ -5,11 +5,13 @@ require 'admiral/config'
 
 module Admiral
   VERSION = '0.0.0'
-  ETCD_HOST = '172.17.42.1' # Host IP in CoreOS docker containers
+  DEFAULT_ETCD_HOST = '172.17.42.1' # Host IP in CoreOS docker containers
 
   class << self
+    attr_accessor :etcd_host
+
     def etcd
-      @etcd ||= Etcd.client(host: ETCD_HOST)
+      @etcd ||= Etcd.client(host: etcd_host || DEFAULT_ETCD_HOST)
     end
   end
 

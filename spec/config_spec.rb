@@ -3,6 +3,8 @@ require 'spec_helper'
 module Admiral
   describe Config do
 
+    let(:config) { Config.new }
+
     def empty_etcd
       `etcdctl rm --recursive #{Config::NS} 2>&1 > /dev/null`
     end
@@ -15,9 +17,37 @@ module Admiral
       empty_etcd
     end
 
-    describe "a method with the same name as a key" do
-      it "should return that key" do
+    describe "#[]" do
+      context "when the key doesn't exist" do
+        it "should raise an error" do
+          expect{config['foo']}.to raise_error(Etcd::KeyNotFound)
+        end
+      end
 
+      context "when the key exists" do
+        context "and is not a directory" do
+          before(:each) do
+            `etcdctl set #{Config::NS}/test foo`
+          end
+
+          it "should return that key's value" do
+            expect(config['test']).to eq('foo')
+          end
+        end
+
+        context "and is a directory" do
+          before(:each) do
+            `etcdctl set #{Config::NS}/tests/1 foo`
+            `etcdctl set #{Config::NS}/tests/2 bar`
+          end
+
+          it "should return that key's children" do
+            result = config['tests'] 
+            expect(result).to be_a(Array)
+            expect(result[0].value).to eq('foo')
+            expect(result[1].value).to eq('bar')
+          end
+        end
       end
     end
 
