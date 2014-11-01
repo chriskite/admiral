@@ -4,7 +4,7 @@ module Admiral
   describe Config do
 
     def empty_etcd
-      `etcdctl rm --recursive #{Config::NS}`
+      `etcdctl rm --recursive #{Config::NS} 2>&1 > /dev/null`
     end
 
     before(:each) do
