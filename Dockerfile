@@ -12,7 +12,7 @@ ENV HOME /root
 CMD ["/sbin/my_init"]
 
 RUN apt-get update
-RUN apt-get install -y --force-yes build-essential curl git
+RUN apt-get install -y --force-yes build-essential curl git wget
 RUN apt-get install -y --force-yes zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev
 
 # Install rbenv and ruby-build
@@ -45,6 +45,13 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # Disable SSH
 RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 
+# Install etcd and etcdctl (used for testing)
+RUN wget https://github.com/coreos/etcd/releases/download/v0.4.6/etcd-v0.4.6-linux-amd64.tar.gz
+RUN tar -C /opt/ -xzf etcd-v0.4.6-linux-amd64.tar.gz && mv /opt/etcd* /opt/etcd
+RUN ln -s /opt/etcd/etcd /bin/etcd && ln -s /opt/etcd/etcdctl /bin/etcdctl
+
 ADD bin /admiral/bin
 ADD spec /admiral/spec
 ADD lib /admiral/lib
+
+
