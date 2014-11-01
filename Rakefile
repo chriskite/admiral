@@ -5,7 +5,7 @@ namespace :docker do
 
   task :spec do
     `sudo docker build -t admiral_test . 2>&1 > /dev/null && \
-     sudo docker run -t admiral_test /root/.rbenv/shims/bundle exec rspec 1>&2`
+     sudo docker run -t admiral_test /sbin/my_init -- /root/.rbenv/shims/bundle exec rspec 1>&2`
   end
 end
 

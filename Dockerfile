@@ -42,6 +42,9 @@ RUN /bin/bash -l -c "bundle install"
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD bin /admiral/
-ADD spec /admiral/
-ADD lib /admiral/
+# Disable SSH
+RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
+
+ADD bin /admiral/bin
+ADD spec /admiral/spec
+ADD lib /admiral/lib
