@@ -1,0 +1,1 @@
+require 'admiral/notifier/hipchat'

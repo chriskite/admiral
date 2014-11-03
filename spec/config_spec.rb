@@ -5,10 +5,6 @@ module Admiral
 
     let(:config) { Config.new }
 
-    def empty_etcd
-      `etcdctl rm --recursive #{Config::NS} 2>&1 > /dev/null`
-    end
-
     before(:each) do
       empty_etcd
     end

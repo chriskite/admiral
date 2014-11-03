@@ -1,7 +1,11 @@
 require 'rubygems'
 require 'bundler/setup'
 Bundler.require :default
+require 'active_support'
+require 'active_support/core_ext'
 require 'json'
+require 'admiral/notifier'
+require 'admiral/notifier_factory'
 require 'admiral/config'
 require 'admiral/state_monitor'
 
@@ -14,6 +18,10 @@ module Admiral
 
     def etcd
       @etcd ||= Etcd.client(host: etcd_host || DEFAULT_ETCD_HOST)
+    end
+
+    def config
+      @config ||= Admiral::Config.new
     end
   end
 

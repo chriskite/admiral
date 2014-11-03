@@ -6,10 +6,6 @@ module Admiral
     let(:state_monitor) { StateMonitor.new }
     let(:etcd) { Etcd.client }
 
-    def empty_etcd
-      `etcdctl rm --recursive #{StateMonitor::STATE_KEY} 2>&1 > /dev/null`
-    end
-
     before(:each) do
       empty_etcd
     end
@@ -24,14 +20,15 @@ module Admiral
       end
 
       it "should yield states which have changed to failed" do
-        etcd.set("#{StateMonitor::STATE_KEY}/test.service", value: test_data.to_json) 
+        test_key = "test.service"
+        etcd.set("#{StateMonitor::STATE_KEY}/#{test_key}", value: test_data.to_json) 
         expect{ |b| state_monitor.failed_states(&b) }.not_to yield_control
 
         # set the fleet unit state to failed
         test_data['subState'] = 'failed'
         etcd.set("#{StateMonitor::STATE_KEY}/test.service", value: test_data.to_json) 
 
-        expect { |b| state_monitor.failed_states(&b) }.to yield_with_args(test_data)
+        expect { |b| state_monitor.failed_states(&b) }.to yield_with_args(test_key, test_data)
       end
     end
 
