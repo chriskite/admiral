@@ -3,6 +3,7 @@ require 'bundler/setup'
 Bundler.require :default
 require 'json'
 require 'admiral/config'
+require 'admiral/state_monitor'
 
 module Admiral
   VERSION = '0.0.0'
