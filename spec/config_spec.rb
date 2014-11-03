@@ -26,12 +26,17 @@ module Admiral
 
       context "when the key exists" do
         context "and is not a directory" do
-          before(:each) do
-            `etcdctl set #{Config::NS}/test foo`
+          context "and is not JSON" do
+            it "should return that key's value" do
+              `etcdctl set #{Config::NS}/test foo`
+              expect(config['test']).to eq('foo')
+            end
           end
-
-          it "should return that key's value" do
-            expect(config['test']).to eq('foo')
+          context "and is valid JSON" do
+            it "should return a parsed JSON object" do
+              `etcdctl set #{Config::NS}/test '{"val": "foo"}'`
+              expect(config['test']).to eq({"val" => "foo"})
+            end
           end
         end
 

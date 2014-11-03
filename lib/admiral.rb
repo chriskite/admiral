@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 Bundler.require :default
+require 'json'
 require 'admiral/config'
 
 module Admiral

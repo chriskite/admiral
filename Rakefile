@@ -10,7 +10,7 @@ namespace :docker do
     # enable the etcd runit
     `echo "ADD spec/etcd.sh /etc/service/etcd/run" >> Dockerfile`
     `sudo docker build -t admiral_test . 2>&1 > /dev/null && \
-     sudo docker run -t admiral_test /sbin/my_init -- /root/.rbenv/shims/bundle exec rspec 1>&2`
+     sudo docker run -t admiral_test /sbin/my_init -- /root/.rbenv/shims/bundle exec rspec --color 1>&2`
     FileUtils.mv 'Dockerfile.bak', 'Dockerfile'
   end
 end
