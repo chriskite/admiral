@@ -4,10 +4,9 @@ Bundler.require :default
 require 'active_support'
 require 'active_support/core_ext'
 require 'json'
-require 'admiral/notifier'
-require 'admiral/notifier_factory'
-require 'admiral/config'
-require 'admiral/state_monitor'
+Dir[File.expand_path(File.join(File.dirname(File.absolute_path(__FILE__)), 'admiral')) + "/**/*.rb"].each do |file|
+  require file
+end
 
 module Admiral
   VERSION = '0.0.0'

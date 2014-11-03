@@ -4,6 +4,7 @@ module Admiral
 
       def initialize
         api_token = Admiral.config['notification/hipchat/token']
+        puts "api_token = #{api_token}"
         @rooms = Admiral.config['notification/hipchat/rooms']
         @hipchat = ::HipChat::Client.new(api_token, :api_version => 'v2')
       end

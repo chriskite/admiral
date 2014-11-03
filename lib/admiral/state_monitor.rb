@@ -17,6 +17,7 @@ module Admiral
     # Loads all service states from etcd
     # Yields states which have changed to failed
     def failed_states
+      # TODO clean out old states
       new_states = Admiral.etcd.get(STATE_KEY).children
       new_states.each do |service_state|
         service_key = service_state.key.split('/').last
@@ -34,7 +35,7 @@ module Admiral
 
     def send_notifications(name, state)
       # create notification classes from config
-      Admiral.config['notification'].children.each do |notifier_config|
+      Admiral.config['notification'].each do |notifier_config|
         NotifierFactory.create(notifier_config).notify(name, state) 
       end
     end

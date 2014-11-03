@@ -1,1 +1,4 @@
-require 'admiral/notifier/hipchat'
+module Admiral
+  module Notifier
+  end
+end
