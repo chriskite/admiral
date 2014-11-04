@@ -1,4 +1,4 @@
 module Admiral
-  module Notifier
+  module Notification
   end
 end

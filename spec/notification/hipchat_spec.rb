@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Admiral
-  module Notifier
+  module Notification
     describe Hipchat do
 
       let(:etcd) { Etcd.client }
