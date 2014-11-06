@@ -2,8 +2,7 @@ module Admiral
   class Launcher
 
     def launch_instance(instance)
-      val = {'instance' => instance, 'createdAt' => Time.now.to_s}.to_json
-      Admira.config.set("launching/#{instance}", value: val, ttl: 180)
+      set_launching_instance(instance)
       # TODO use fog to launch instance
     end
 
@@ -18,7 +17,8 @@ module Admiral
     private
 
     def set_launching_instance(instance)
-      Admiral.config["launching/#{instance}"] = 0
+      val = {'instance' => instance, 'createdAt' => Time.now.to_s}.to_json
+      Admiral.config.set("launching/#{instance}", value: val, ttl: 180)
     end
 
   end

@@ -22,7 +22,7 @@ module Admiral
         hipchat_mock = double()
         allow(::HipChat::Client).to receive(:new).and_return(hipchat_mock)
         room_mock = double()
-        expect(room_mock).to receive(:send).with('Admiral', '[Fleet] test.service entered failed state', {})
+        expect(room_mock).to receive(:send).with('Admiral', '[Fleet] test.service entered failed state', {notify: true, color: 'red'})
         expect(hipchat_mock).to receive(:[]).with('Test Room').and_return(room_mock)
 
         hipchat = Hipchat.new
