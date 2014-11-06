@@ -67,6 +67,6 @@ end
 Admiral.etcd_host = '127.0.0.1'
 
 def empty_etcd
-  `etcdctl rm --recursive #{Admiral::Config::NS} 2>&1 > /dev/null`
+  `etcdctl rm --recursive #{Admiral::NS} 2>&1 > /dev/null`
   `etcdctl rm --recursive /_coreos.com 2>&1 > /dev/null`
 end

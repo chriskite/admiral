@@ -24,13 +24,13 @@ module Admiral
         context "and is not a directory" do
           context "and is not JSON" do
             it "should return that key's value" do
-              `etcdctl set #{Config::NS}/test foo`
+              `etcdctl set #{Admiral::NS}/test foo`
               expect(config['test']).to eq('foo')
             end
           end
           context "and is valid JSON" do
             it "should return a parsed JSON object" do
-              `etcdctl set #{Config::NS}/test '{"val": "foo"}'`
+              `etcdctl set #{Admiral::NS}/test '{"val": "foo"}'`
               expect(config['test']).to eq({"val" => "foo"})
             end
           end
@@ -38,8 +38,8 @@ module Admiral
 
         context "and is a directory" do
           before(:each) do
-            `etcdctl set #{Config::NS}/tests/1 foo`
-            `etcdctl set #{Config::NS}/tests/2 bar`
+            `etcdctl set #{Admiral::NS}/tests/1 foo`
+            `etcdctl set #{Admiral::NS}/tests/2 bar`
           end
 
           it "should return that key's children" do

@@ -1,6 +1,6 @@
 module Admiral
   class StateMonitor
-    STATE_KEY = '/_coreos.com/fleet/state'
+    STATE_KEY = "#{Admiral::FLEET_NS}/state"
     INTERVAL = 5 # seconds between polls
     
     def initialize

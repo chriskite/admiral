@@ -1,14 +1,21 @@
 module Admiral
   class Config
-    NS = '/_admiral' # Etcd top level directory
 
     def [](key)
-      node = Admiral.etcd.get("#{NS}/#{key}")
+      node = Admiral.etcd.get("#{Admiral::NS}/#{key}")
       if node.directory?
         return node.children
       else
         return try_to_parse(node.value)
       end
+    end
+
+    def []=(key, val)
+      Admiral.etcd.set("#{Admiral::NS}/#{key}", value: val)
+    end
+
+    def set(key, val, opts)
+      Admiral.etcd.set("#{Admiral::NS}/#{key}", opts)
     end
 
     private
