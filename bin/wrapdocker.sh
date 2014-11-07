@@ -84,4 +84,4 @@ popd >/dev/null
 # delete it so that docker can start.
 rm -rf /var/run/docker.pid
 
-exec docker -d
+exec docker -d > /dev/null

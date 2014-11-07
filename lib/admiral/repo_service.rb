@@ -5,7 +5,7 @@ module Admiral
       @github_path = github_path
       @docker_registry_tag = docker_registry_tag
       @service_name = service_name
-      @github_token = Admiral.config['github_token']
+      @github_token = Admiral.config['github/token']
       FileUtils.mkdir_p(checkout_path)
     end
 

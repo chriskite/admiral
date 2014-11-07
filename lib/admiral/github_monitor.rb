@@ -12,13 +12,13 @@ module Admiral
     private
 
     def check_repos
-      repos = Admiral.config['repos'].map do |conf|
+      repos = Admiral.config['github/repos'].map do |conf|
         data = JSON.parse(conf.value)
         RepoService.new(
-          data['url'],
-          data['docker_registry_tag'],
+          data['path'],
+          data['dockerRegistryTag'],
           data['service'],
-          data['num_instances']
+          data['numInstances']
         )
       end
 

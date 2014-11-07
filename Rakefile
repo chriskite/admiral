@@ -9,6 +9,8 @@ namespace :docker do
     FileUtils.cp 'Dockerfile', 'Dockerfile.bak'
     # enable the etcd runit
     `echo "ADD spec/etcd.sh /etc/service/etcd/run" >> Dockerfile`
+    # remove all the admiral services
+    `echo "RUN rm -rf /etc/service/*_monitor" >> Dockerfile`
     `sudo docker build -t admiral_test . 2>&1 > /dev/null && \
      sudo docker run --privileged -t admiral_test /sbin/my_init -- /root/.rbenv/shims/bundle exec rspec --color 1>&2`
     FileUtils.mv 'Dockerfile.bak', 'Dockerfile'

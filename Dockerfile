@@ -60,6 +60,9 @@ RUN ln -s /opt/etcd/etcd /bin/etcd && ln -s /opt/etcd/etcdctl /bin/etcdctl
 
 # Install the docker wrapper as a runit service
 ADD bin/wrapdocker.sh /etc/service/wrapdocker/run
+# Install Admiral monitors as runit services
+ADD bin/github_monitor.sh /etc/service/github_monitor/run
+ADD bin/state_monitor.sh /etc/service/state_monitor/run
 
 ADD bin /admiral/bin
 ADD spec /admiral/spec
