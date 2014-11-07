@@ -17,6 +17,10 @@ module Admiral
       AMI_MAP[region]
     end
 
+    def security_group
+      config 'security-group'
+    end
+
     def tags
       {'Roles' => 'coreos'}
     end
@@ -42,7 +46,7 @@ module Admiral
     end
 
     def discovery_url
-      config 'discovery_url'
+      config 'discovery-url'
     end
 
     def reboot_strategy
